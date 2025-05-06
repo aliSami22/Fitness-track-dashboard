@@ -1,12 +1,12 @@
 import React from "react";
 import MiniDrawer from "../components/MiniDrawer";
 
-const Splash = () => {
+const OverView = () => {
   return (
     <MiniDrawer>
-      <div>Splash</div>
+      <div>OverView</div>
     </MiniDrawer>
   );
 };
 
-export default Splash;
+export default OverView;

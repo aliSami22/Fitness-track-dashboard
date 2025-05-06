@@ -1,12 +1,12 @@
 import React from "react";
 import MiniDrawer from "../components/MiniDrawer";
 
-const Splash = () => {
+const Activity = () => {
   return (
     <MiniDrawer>
-      <div>Splash</div>
+      <div>Activity</div>
     </MiniDrawer>
   );
 };
 
-export default Splash;
+export default Activity;
