@@ -433,7 +433,9 @@ const MiniDrawer = ({ children }) => {
     { text: "Overview", icon: <DashboardIcon />, path: "/overview" },
     { text: "Goals", icon: <FlagIcon />, path: "/goals" },
     { text: "Activity", icon: <DirectionsRunIcon />, path: "/activity" },
-    { text: "Diet Plan", icon: <RestaurantMenuIcon />, path: "/diet-plan" },
+    // { text: "Diet Plan", icon: <RestaurantMenuIcon />, path: "/diet-plan" },
+    { text: "BMI", icon: <RestaurantMenuIcon />, path: "/bmi" },
+
     { text: "Workout", icon: <FitnessCenterIcon />, path: "/workout" },
   ];
 

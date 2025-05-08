@@ -34,7 +34,7 @@ function Login() {
       localStorage.setItem("userData", JSON.stringify(res.data.user));
 
       alert("Logged in Successfully!");
-      navigate("/dashboard");
+      navigate("/overview");
     } catch (err) {
       console.error(err.response?.data || err.message);
       alert("Login Failed!");

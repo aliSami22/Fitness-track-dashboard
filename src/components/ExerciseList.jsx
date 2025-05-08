@@ -11,10 +11,10 @@ const ExerciseList = () => {
     "chest",
     "back",
     "shoulders",
-    "arms",
-    "quads",
-    "glutes",
-    "hamstrings",
+    "chest",
+    "back",
+    "shoulders",
+    "chest",
   ];
   const getBodyPartOfTheDay = () => {
     const dayIndex = new Date().getDay();

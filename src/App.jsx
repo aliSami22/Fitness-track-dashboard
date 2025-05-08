@@ -11,6 +11,8 @@ import Login from "./pages/Login";
 import Goals from "./pages/Goals";
 import OverView from "./pages/OverView";
 import DietPlan from "./pages/DietPlan";
+import Splash from "./pages/Splash";
+import BmiCalculatorPage from "./pages/BmiCalculatorPage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Splash />} />
 
         <Route
           path="/activity"
@@ -46,10 +49,10 @@ function App() {
           }
         />
         <Route
-          path="/overview"
+          path="/bmi"
           element={
             <ProtectedRoute>
-              <OverView />
+              <BmiCalculatorPage />
             </ProtectedRoute>
           }
         />
@@ -57,7 +60,7 @@ function App() {
           path="/overview"
           element={
             <ProtectedRoute>
-              <DietPlan />
+              <OverView />
             </ProtectedRoute>
           }
         />
