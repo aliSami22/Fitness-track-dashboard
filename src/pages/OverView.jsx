@@ -109,12 +109,15 @@ const OverView = () => {
         </DashboardGrid>
         <DashboardGrid className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-5">
           <DashboardSection className="lg:col-span-2">
-            <Link to="/activity" className="text-amber-50 hover:underline">
+            <Link
+              to="/activity"
+              className="text-amber-50  hover:text-emerald-300"
+            >
               <ActivityChart />
             </Link>
           </DashboardSection>
           <DashboardSection>
-            <Link to="/workout" className="text-amber-50 hover:underline">
+            <Link to="/workout">
               <CalorieCalculatorCard />
             </Link>
           </DashboardSection>

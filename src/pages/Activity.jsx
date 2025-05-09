@@ -3,6 +3,7 @@ import MiniDrawer from "../components/MiniDrawer";
 import WeeklyStepsUpdater from "../components/WeeklyStepsUpdater";
 import WeeklyStepsChart from "../components/WeeklyStepsChart";
 import ProgressBar from "../components/ProgressBar";
+import { motion } from "framer-motion";
 
 //day of day
 const formattedDate = new Date().toLocaleDateString("en-US", {
@@ -46,22 +47,31 @@ export default function Activity() {
 
   return (
     <MiniDrawer>
-      <div className="flex h-screen  text-gray-800 pl-20">
-        {/* Sidebar */}
-
+      <div className="flex h-screen text-gray-800 pl-20">
         {/* Main Content */}
         <div className="flex-1 overflow-auto">
           {/* Header */}
-          <header className="!p-6 pb-2 flex justify-between items-center">
+          <motion.header
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="!p-6 pb-2 flex justify-between items-center"
+          >
             <div>
-              <h1 className="  text-amber-50 text-4xl font-bold">
+              <h1 className="text-amber-50 text-4xl font-bold">
                 Activity Dashboard
               </h1>
               <p className="text-white/70 text-sm">{formattedDate}</p>
             </div>
-          </header>
+          </motion.header>
 
-          <div className="mx-6 bg-white !p-4 rounded-lg shadow-sm mb-4">
+          {/* Weekly Chart Card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mx-6 bg-white !p-4 rounded-lg shadow-sm mb-4"
+          >
             <div className="flex justify-between items-center mb-4">
               <h2 className="font-medium">Weekly Steps</h2>
               <div className="flex text-xs">
@@ -74,81 +84,64 @@ export default function Activity() {
               </div>
             </div>
             <WeeklyStepsChart />
-          </div>
+          </motion.div>
 
-          {/* Dashboard Lower Section */}
-          <div className="grid grid-cols-2 gap-4 mx-6 ">
-            {/* Daily Summary */}
+          {/* Daily Summary */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="grid grid-cols-2 gap-4 mx-6"
+          >
             <div className="col-span-2 bg-white p-6 rounded-lg shadow-sm">
               <h2 className="text-lg font-semibold mb-6">Daily Summary</h2>
-
               <div className="grid grid-cols-2 gap-6">
-                {/* Steps */}
-                <div>
-                  <div className="flex items-center mb-2">
-                    <div className="p-2 rounded-full bg-blue-100 mr-3">
-                      <IconBarChart className="text-blue-500" />
+                {[
+                  // Your metrics as array to map animations
+                  {
+                    title: "Steps",
+                    value: totalCalories * 20,
+                    color: "bg-blue-500",
+                  },
+                  {
+                    title: "Active Minutes",
+                    value: totalTime,
+                    color: "bg-green-500",
+                  },
+                  {
+                    title: "Floors",
+                    value: totalExercises,
+                    color: "bg-purple-500",
+                  },
+                  {
+                    title: "Calories",
+                    value: totalCalories,
+                    color: "bg-orange-500",
+                  },
+                ].map((item, idx) => (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.5 + idx * 0.2 }}
+                  >
+                    <div className="flex items-center mb-2">
+                      <div className={`p-2 rounded-full ${item.color}/20 mr-3`}>
+                        <IconBarChart className={`${item.color}`} />
+                      </div>
+                      <span className="text-gray-600">{item.title}</span>
                     </div>
-                    <span className="text-gray-600">Steps</span>
-                  </div>
-                  <div className="text-2xl font-bold">{totalCalories * 20}</div>
-                  <ProgressBar
-                    value={totalCalories * 20}
-                    max={240 * 20}
-                    color="bg-blue-500"
-                  />
-                </div>
-
-                {/* Active Minutes */}
-                <div>
-                  <div className="flex items-center mb-2">
-                    <div className="p-2 rounded-full bg-green-100 mr-3">
-                      <IconBarChart className="text-green-500" />
-                    </div>
-                    <span className="text-gray-600">Active Minutes</span>
-                  </div>
-                  <div className="text-2xl font-bold">{totalTime}</div>
-                  <ProgressBar
-                    value={totalTime}
-                    max={1800}
-                    color="bg-green-500"
-                  />
-                </div>
-
-                {/* Floors */}
-                <div>
-                  <div className="flex items-center mb-2">
-                    <div className="p-2 rounded-full bg-purple-100 mr-3">
-                      <IconBarChart className="text-purple-500" />
-                    </div>
-                    <span className="text-gray-600">Floors</span>
-                  </div>
-                  <div className="text-2xl font-bold">{totalExercises}</div>
-                  <ProgressBar
-                    value={totalExercises}
-                    max={10}
-                    color="bg-purple-500"
-                  />
-                </div>
-
-                {/* Calories */}
-                <div>
-                  <div className="flex items-center mb-2">
-                    <div className="p-2 rounded-full bg-orange-100 mr-3">
-                      <IconBarChart className="text-orange-500" />
-                    </div>
-                    <span className="text-gray-600">Calories</span>
-                  </div>
-                  <div className="text-2xl font-bold">{totalCalories}</div>
-                  <ProgressBar
-                    value={totalCalories}
-                    max={240}
-                    color="bg-orange-500"
-                  />
-                </div>
+                    <div className="text-2xl font-bold">{item.value}</div>
+                    <ProgressBar
+                      value={item.value}
+                      max={item.title === "Steps" ? 4800 : 240}
+                      color={item.color}
+                    />
+                  </motion.div>
+                ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </MiniDrawer>

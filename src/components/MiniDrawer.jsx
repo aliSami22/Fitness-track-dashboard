@@ -415,34 +415,34 @@ import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import LogoutIcon from "@mui/icons-material/Logout";
-import HelpIcon from "@mui/icons-material/Help";
+import CalculateIcon from "@mui/icons-material/Calculate";
 import logo from "../assets/logo.svg"; // استيراد الصورة
 
 const drawerWidthOpen = 240;
 const drawerWidthClosed = 60;
 
 const MiniDrawer = ({ children }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate(); // ← تم نقل useNavigate هنا
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
   const navItems = [
     { text: "Overview", icon: <DashboardIcon />, path: "/overview" },
     { text: "Goals", icon: <FlagIcon />, path: "/goals" },
     { text: "Activity", icon: <DirectionsRunIcon />, path: "/activity" },
     // { text: "Diet Plan", icon: <RestaurantMenuIcon />, path: "/diet-plan" },
-    { text: "BMI", icon: <RestaurantMenuIcon />, path: "/bmi" },
+    { text: "BMI", icon: <CalculateIcon />, path: "/bmi" },
 
     { text: "Workout", icon: <FitnessCenterIcon />, path: "/workout" },
   ];
 
-  const bottomItems = [
-    { text: "Help", icon: <HelpIcon /> },
-    { text: "Logout", icon: <LogoutIcon /> },
-  ];
+  const bottomItems = [{ text: "Logout", icon: <LogoutIcon /> }];
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -557,13 +557,14 @@ const MiniDrawer = ({ children }) => {
               >
                 <ListItem
                   button
+                  onClick={item.text === "Logout" ? handleLogout : undefined}
                   sx={{
                     justifyContent: open ? "initial" : "center",
                     px: 2.5,
                     cursor: "pointer",
                     transition: "all 0.3s ease",
                     "&:hover": {
-                      backgroundColor: "#4C8050",
+                      backgroundColor: "#ff0000",
                       color: "#fff",
                       borderRadius: "8px",
                       transform: "scale(1.02)",

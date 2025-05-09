@@ -23,7 +23,7 @@ const DashboardSection = ({
 };
 
 export const DashboardHeader = ({ title, subtitle }) => (
-  <DashboardSection className="p-10 ">
+  <DashboardSection className="p-10  ">
     <h1 className="text-3xl text-amber-50 font-bold text-foreground/90">
       {title}
     </h1>
